@@ -1,0 +1,85 @@
+body {
+    background-color: #ccc;
+}
+
+.bg-div {
+    background-image: url(river.jpg);
+    width: 1228px;
+    height: 690px;
+    margin: 0 auto;
+
+    position: relative;
+}
+
+.logo {
+    background-image: url(logo.png);
+    width: 107px;
+    height: 53px;
+    float: left;
+    margin: -4px 18px 0 0;
+}
+
+form {
+    float: left;
+    background-color: #fff;
+    padding: 10px;
+}
+
+.search-input-text {
+    border: 0;
+    float: left;
+    height: 29px;
+    line-height :25px; /*文本垂直居中*/
+    outline: none;
+    width: 350px;
+    font-size: 20px;
+}
+
+.search-input-button {
+    border: 0;
+    background-image: url(search-button.png);
+    width: 30px;
+    height: 30px;
+    float: left;
+}
+
+.searchBox {
+    /*相对于body定位*/
+    position: absolute;
+    top:200px;
+    left:300px;
+
+    /*只用
+    position: absolute;
+    top:200px;
+    left:300px;
+    时，是相对于body定位；
+
+    如果想要相对于背景图（父元素）定位，
+    就要给父元素加上
+    position: relative;*/
+}
+
+.suggest {
+    width: 400px;
+    background-color: #fff;
+    border: 1px solid #999;
+}
+
+.suggest ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.suggest li {
+    padding: 3px;
+    font-size: 15px;
+    line-height: 25px;
+    cursor: pointer;
+}
+
+.suggest ul li:hover {
+    text-decoration: none;
+    background-color: #cccccc;
+}

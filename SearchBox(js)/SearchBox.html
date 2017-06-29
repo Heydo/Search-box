@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--防止IE进入“怪异文档模式”，使用“正常文档模式”渲染-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Bing Search</title>
+    <!--<link rel="stylesheet" type="text/css" href="bing.css"/>-->
+    <style type="text/css">
+        body {background-color: #ccc;}
+        .bg-div {background-image: url(river.jpg); width: 1228px; height: 690px; margin: 0 auto; position: relative;  }
+        .logo { background-image: url(logo.png); width: 107px; height: 53px; float: left; margin: -4px 18px 0 0; }
+        form { float: left; background-color: #fff; padding: 10px; }
+        .search-input-text { border: 0; float: left; height: 29px; line-height :25px; /*文本垂直居中*/ outline: none; width: 350px; font-size: 20px; }
+        .search-input-button { border: 0; background-image: url(search-button.png); width: 30px; height: 30px; float: left; }
+        .searchBox { /*相对于body定位*/  position: absolute; top:200px;  left:300px;
+            /*只用
+            position: absolute;
+            top:200px;
+            left:300px;
+            时，是相对于body定位；
+
+            如果想要相对于背景图（父元素）定位，
+            就要给父元素加上
+            position: relative;*/  }
+        .suggest { width: 400px; background-color: #fff; border: 1px solid #999; }
+        .suggest ul { list-style: none; margin: 0; padding: 0; }
+        .suggest li { padding: 3px; font-size: 15px; line-height: 25px; cursor: pointer; }
+        .suggest ul li:hover { text-decoration: none; background-color: #cccccc; }
+    </style>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <!--<script type="text/javascript" src="bing.js"></script>-->
+
+</head>
+<body>
+    <div class="bg-div">
+        <div class="searchBox">
+            <div class="logo"></div>
+
+            <form class="search-form" action="https://cn.bing.com/search" target="_blank" id="search-form">
+                <input type="text" class="search-input-text" name="q" id="search_input" autocomplete="off"/>
+                <input type="submit" class="search-input-button" value=""/>
+            </form>
+
+        </div>
+    </div>
+
+    <div class="suggest" id="search-suggest" style="display: none">
+        <!--临时样式，所以写这里-->
+        <ul id="search-result">
+            <li>搜索结果1</li>
+            <li>搜索结果1</li>
+        </ul>
+    </div>
+
+</body>
+</html>
+
+<script>
+    //通过元素ID获取元素,减少编码过程
+    var getDom = function (id) {
+        return document.getElementById(id);
+    }
+    //给元素绑定事件
+    var addEvent = function (id, event, fn) {
+        //id，事件类型，回掉函数
+        // ||document用于容错，有可能传入的元素不存在，这是就使用document作为事件绑定的对象
+        var el = getDom(id) || document;
+        //非IE：addEventListener ；IE：attachEvent
+        if(el.addEventListener){
+            el.addEventListener(event, fn ,false);
+        }else if(el.attachEvent){
+            el.attachEvent('on' + event, fn);
+        }
+        //不用.onclick()的原因，.addEvent可以为一个元素绑定多个事件
+    }
+
+    //去元素距离浏览器左边的距离
+    var getElementLeft = function (element) {
+
+        var actualLeft = element.offsetLeft;//获得距离父元素左边的距离
+        var current = element.offsetParent;//获取他的父元素
+
+        while (current !== null){
+            //若存在父元素，则将父元素距离‘父元素的父元素’的Top加上当前元素距离父元素的距离，再去寻找更上一层的父元素；若current不为空，就说明已经找到最后一个父元素，此时累计得到的Left就是元素距离body的实际距离。
+            actualLeft += current.offsetLeft;
+            current = current.offsetParent;
+        }
+        return actualLeft;
+    }
+
+    var getElementTop = function (element) {
+        var actualTop = element.offsetTop;
+        var current = element.offsetParent;
+
+        while (current !== null){
+            actualTop += current.offsetTop;
+            current = current.offsetParent;
+        }
+        return actualTop;
+    }
+
+
+    addEvent('search_input','keyup',function () {
+
+    });
+</script>
