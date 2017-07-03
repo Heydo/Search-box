@@ -28,8 +28,9 @@
         .suggest li { padding: 3px; font-size: 15px; line-height: 25px; cursor: pointer; }
         .suggest ul li:hover { text-decoration: none; background-color: #cccccc; }
     </style>
-    <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <!--<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>-->
     <!--<script type="text/javascript" src="bing.js"></script>-->
+    <!--<script type="text/javascript" src="searchBox.js"></script>-->
 
 </head>
 <body>
@@ -45,7 +46,7 @@
         </div>
     </div>
 
-    <div class="suggest" id="search-suggest" style="display: none">
+    <div class="suggest" id="search-suggests" style="display: none">
         <!--临时样式，所以写这里-->
         <ul id="search-result">
             <li>搜索结果1</li>
@@ -56,11 +57,12 @@
 </body>
 </html>
 
+
 <script>
     //通过元素ID获取元素,减少编码过程
     var getDom = function (id) {
         return document.getElementById(id);
-    }
+    };
     //给元素绑定事件
     var addEvent = function (id, event, fn) {
         //id，事件类型，回掉函数
@@ -73,7 +75,7 @@
             el.attachEvent('on' + event, fn);
         }
         //不用.onclick()的原因，.addEvent可以为一个元素绑定多个事件
-    }
+    };
 
     //去元素距离浏览器左边的距离
     var getElementLeft = function (element) {
@@ -87,7 +89,7 @@
             current = current.offsetParent;
         }
         return actualLeft;
-    }
+    };
 
     var getElementTop = function (element) {
         var actualTop = element.offsetTop;
@@ -98,10 +100,14 @@
             current = current.offsetParent;
         }
         return actualTop;
-    }
+    };
 
-
+    //响应用户键盘事件
     addEvent('search_input','keyup',function () {
-
+        getDom('search-suggests').style.top = getElementTop(getDom('search-from'))+ 38 + 'px';
+        /*//38指输入框的高度*/
+        getDom('search-suggests').style.left = getElementLeft(getDom('search-form')) + 'px';
+        getDom('search-suggests').style.position = 'absolute';
+        getDom('search-suggests').style.display = 'block';
     });
 </script>
